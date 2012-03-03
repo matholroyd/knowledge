@@ -1,5 +1,9 @@
 -- Functionally solving problems
 
+module ChapterTen
+( solveRPN
+) where
+
 solveRPN :: String -> Float
 solveRPN = head . foldl foldingFunction [] . words
   where foldingFunction (x:y:xs) "*" = (x * y):xs
@@ -10,3 +14,5 @@ solveRPN = head . foldl foldingFunction [] . words
         foldingFunction (x:xs) "ln"  = log x:xs
         foldingFunction xs "sum"     = [sum xs]
         foldingFunction xs number    = read number:xs
+
+
