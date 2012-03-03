@@ -6,6 +6,11 @@ Glasgow Haskell Console (something starting with i, probably "interactive")
 
 # Simple commands
 
+## Quit
+  
+    :q
+    :quit
+
 ## Loading a file
 
     :l path/to/source/code
