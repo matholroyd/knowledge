@@ -5,6 +5,8 @@ module ChapterTen
 ) where
 
 solveRPN :: String -> Float
+-- solveRPN expression = head $ foldl foldingFunction [] (words expression)
+-- solveRPN = head . (foldl foldingFunction []) . words 
 solveRPN = head . foldl foldingFunction [] . words
   where foldingFunction (x:y:xs) "*" = (x * y):xs
         foldingFunction (x:y:xs) "+" = (x + y):xs
