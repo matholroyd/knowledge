@@ -102,16 +102,6 @@ data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
            deriving (Eq, Ord, Show, Read, Bounded, Enum)
            
 
-solveRPN :: String -> Float
-solveRPN = head . foldl foldingFunction [] . words
-  where foldingFunction (x:y:xs) "*" = (x * y):xs
-        foldingFunction (x:y:xs) "+" = (x + y):xs
-        foldingFunction (x:y:xs) "-" = (y - x):xs
-        foldingFunction (x:y:xs) "/" = (y / x):xs
-        foldingFunction (x:y:xs) "^" = (y ** x):xs
-        foldingFunction (x:xs) "ln"  = log x:xs
-        foldingFunction xs "sum"     = [sum xs]
-        foldingFunction xs number    = read number:xs
            
 
 
