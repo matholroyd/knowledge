@@ -34,4 +34,30 @@ heathrowToLondon :: RoadSystem
 heathrowToLondon = [Section 50 10 30, Section 5 90 20, Section 40 2 25, Section 10 8 0]
 
 optimalPath :: RoadSystem -> Path
-optimalPath rs = [(A, 10)]
+optimalPath rs = 
+  let paths = foldl nextSteps ([], []) rs 
+      bestPath = cheapestPath paths
+  in bestPath
+  
+nextSteps :: (Path, Path) -> Section -> (Path, Path)
+nextSteps (a, b) (Section aStep bStep cStep) =
+  let priceA = pathLength a
+      priceB = pathLength b
+      bestA = if priceA + aStep < priceB + bStep + cStep
+              then (A, aStep):a
+              else (C, cStep):(B, bStep):b
+      bestB = if priceB + bStep < priceA + aStep + cStep
+              then (B, bStep):b
+              else (C, cStep):(A, aStep):a
+  in (bestA, bestB)
+
+cheapestPath :: (Path, Path) -> Path
+cheapestPath (pA, pB) = 
+  let priceA = pathLength pA
+      priceB = pathLength pB
+  in  if priceA < priceB
+      then pA
+      else pB
+  
+pathLength :: Path -> Int
+pathLength = sum . map (snd) 

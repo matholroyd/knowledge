@@ -21,8 +21,9 @@ testsRPN = TestList $ map checkSolveRPN [
         ]
 
 checkOP :: (RoadSystem, Path) -> Test
-checkOP (rs, path) = TestCase $ assertEqual "checking" (optimalPath rs) path
+checkOP (rs, path) = TestCase $ assertEqual (show rs) path (optimalPath rs)
 
 testsOP = TestList $ map checkOP [
-          ([Section 10 20 0], [(A, 10)])
+          ([Section 10 20 0],                     [(A, 10)]),
+          ([Section 10 20 30, Section 100 10 0],  [(A, 10), (C, 30), (B, 10)])
         ]
