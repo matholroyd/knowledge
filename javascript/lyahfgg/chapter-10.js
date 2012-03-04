@@ -2,7 +2,9 @@ exports.solveRPN = function(equation) {
   var get_operator = function(op) {
     switch(op) {
       case '+': 
-      return function(a, b) { return a + b; }
+        return function(a, b) { return a + b; }
+      case '*':
+        return function(a, b) { return a * b; }
     }
   }
   
