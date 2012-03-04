@@ -8,7 +8,7 @@ exports.solveRPN = function(equation) {
     }
   }
   
-  var terms = equation.split(' '),
+  var terms = equation.trim().split(/\s+/),
       a = parseFloat(terms[0]),
       b = parseFloat(terms[1]),
       op = get_operator(terms[2]);

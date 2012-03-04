@@ -9,4 +9,10 @@ describe("Reverse Polish Notation", function() {
     expect(chapter10.solveRPN("2 5 *")).toEqual(10);
   });
 
+  describe("with dodgy input", function() {
+    it("can handle too many spaces", function () {
+      expect(chapter10.solveRPN(" 2    5   *")).toEqual(10);
+    });
+  });
+
 });
