@@ -37,7 +37,10 @@ optimalPath :: RoadSystem -> Path
 optimalPath rs = 
   let paths = foldl nextSteps ([], []) rs 
       bestPath = cheapestPath paths
-  in bestPath
+      cleanedUpPath = if head bestPath == (C, 0)
+                      then tail bestPath
+                      else bestPath
+  in reverse cleanedUpPath  
   
 nextSteps :: (Path, Path) -> Section -> (Path, Path)
 nextSteps (a, b) (Section aStep bStep cStep) =
