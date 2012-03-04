@@ -24,6 +24,7 @@ checkOP :: (RoadSystem, Path) -> Test
 checkOP (rs, path) = TestCase $ assertEqual (show rs) path (optimalPath rs)
 
 testsOP = TestList $ map checkOP [
-          ([Section 10 20 0],                     [(A, 10)]),
+          ([Section 10 20 0], [(A, 10)]),
+          ([Section 20 10 0], [(B, 10)]),
           (heathrowToLondon,  [(B,10),(C,30),(A,5),(C,20),(B,2),(B,8)])
         ]

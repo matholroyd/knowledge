@@ -8,6 +8,7 @@ module ChapterTen
 , Path(..)
 , heathrowToLondon
 , optimalPath
+, nextSteps
 ) where
 
 solveRPN :: String -> Float
@@ -35,11 +36,10 @@ heathrowToLondon = [Section 50 10 30, Section 5 90 20, Section 40 2 25, Section 
 
 optimalPath :: RoadSystem -> Path
 optimalPath rs = 
-  let paths = foldl nextSteps ([], []) rs 
-      bestPath = cheapestPath paths
-      cleanedUpPath = if head bestPath == (C, 0)
-                      then tail bestPath
-                      else bestPath
+  let path = fst $ foldl nextSteps ([], []) rs 
+      cleanedUpPath = if head path == (C, 0)
+                      then tail path
+                      else path
   in reverse cleanedUpPath  
   
 nextSteps :: (Path, Path) -> Section -> (Path, Path)
@@ -54,13 +54,5 @@ nextSteps (a, b) (Section aStep bStep cStep) =
               else (C, cStep):(A, aStep):a
   in (bestA, bestB)
 
-cheapestPath :: (Path, Path) -> Path
-cheapestPath (pA, pB) = 
-  let priceA = pathLength pA
-      priceB = pathLength pB
-  in  if priceA < priceB
-      then pA
-      else pB
-  
 pathLength :: Path -> Int
 pathLength = sum . map (snd) 
