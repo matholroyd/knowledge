@@ -16,13 +16,14 @@ exports.solveRPN = function(equation) {
   }
   
   var terms = equation.trim().split(/\s+/),
-      stack = [];
+      stack = [],
+      a, b, op;
       
   _und.each(terms, function(t) {
     if(get_operator(t)) {
-      var b = stack.pop(),
-          a = stack.pop(),
-          op = get_operator(t);
+      b = stack.pop();
+      a = stack.pop();
+      op = get_operator(t);
       stack.push(op(a, b));
     } else {
       stack.push(parseFloat(t))
