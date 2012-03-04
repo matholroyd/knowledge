@@ -9,6 +9,10 @@ describe("Reverse Polish Notation", function() {
     expect(chapter10.solveRPN("2 5 *")).toEqual(10);
   });
 
+  it("2 3 * 5 +  => 11", function() {
+    expect(chapter10.solveRPN("2 3 * 5 +")).toEqual(11);
+  });
+
   describe("with dodgy input", function() {
     it("can handle too many spaces", function () {
       expect(chapter10.solveRPN(" 2    5   *")).toEqual(10);

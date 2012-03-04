@@ -1,3 +1,8 @@
+var theGoodParts = require('../lib/the_good_parts.js'),
+    _und = require("underscore");
+
+theGoodParts.crockify();
+
 exports.solveRPN = function(equation) {
   var get_operator = function(op) {
     switch(op) {
@@ -5,13 +10,24 @@ exports.solveRPN = function(equation) {
         return function(a, b) { return a + b; }
       case '*':
         return function(a, b) { return a * b; }
+      default:
+        return false;
     }
   }
   
   var terms = equation.trim().split(/\s+/),
-      a = parseFloat(terms[0]),
-      b = parseFloat(terms[1]),
-      op = get_operator(terms[2]);
+      stack = [];
+      
+  _und.each(terms, function(t) {
+    if(get_operator(t)) {
+      var b = stack.pop(),
+          a = stack.pop(),
+          op = get_operator(t);
+      stack.push(op(a, b));
+    } else {
+      stack.push(parseFloat(t))
+    }
+  });
   
-  return op(a, b);
+  return stack.pop();
 };
