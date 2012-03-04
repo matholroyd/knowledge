@@ -8,7 +8,6 @@ module ChapterTen
 , Path(..)
 , heathrowToLondon
 , optimalPath
-, nextSteps
 ) where
 
 solveRPN :: String -> Float
