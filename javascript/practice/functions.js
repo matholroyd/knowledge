@@ -122,5 +122,27 @@ var quo = function(status) {
 var myQuo = quo("running (status private via a closure)");
 console.log(myQuo.get_status());
 
+// Avoiding functions within loops
+
+var array = [{}, {}, {}];
+var add_helper_function = function (array) {
+  "use strict";
+
+  var i, helper;
+  
+  helper = function (x) {
+    return function () {
+      console.log(x);
+    };
+  };
+
+  for (i = 0; i < array.length; i += 1) {
+    array[i].number = helper(i);
+  }
+};
+
+add_helper_function(array);
+array[1].number();
+
 
 
