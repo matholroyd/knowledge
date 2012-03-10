@@ -17,8 +17,18 @@ exports.crockify = function() {
       };
   });
   
-  var is_array = function (value) {
-    return Object.prototype.toString.apply(value) === '[object Array]';
-  };
+  // Need to check this
+  // Object.method('is_array', function () {
+  //   return Object.prototype.toString.apply(this) === '[object Array]';
+  // };
+  
+  Number.method('integer', function () {
+    return Math[this < 0 ? 'ceil' : 'floor'](this);
+  });
+  
+  String.method('trim', function () {
+    return this.replace(/^\s+|\s+$/g, '');
+  });
+
 };
 
