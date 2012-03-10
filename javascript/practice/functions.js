@@ -85,4 +85,42 @@ console.log(myQuo.get_status.apply(otherStatusObject, []));
 console.log(Quo.prototype.get_status.apply(otherStatusObject, []));
 
 
+// Closure to get private methods
+
+var incrementer =  (function () {
+  "use strict";
+  
+  var value = 0;
+  
+  return {
+    get_value: function () {
+      return value;
+    },
+    increment: function (inc) {
+      value += inc;
+      return value;
+    }
+  };
+  
+}());
+
+console.log(incrementer.get_value());
+incrementer.increment(1);
+console.log(incrementer.get_value());
+
+
+var quo = function(status) {
+  "use strict";
+  
+  return {
+    get_status: function () {
+      return status;
+    }
+  };
+};
+
+var myQuo = quo("running (status private via a closure)");
+console.log(myQuo.get_status());
+
+
 
