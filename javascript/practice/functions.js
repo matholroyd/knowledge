@@ -58,6 +58,23 @@ try {
   console.log("get_status function does not exist on Quo");
 }
 
+// Return statement weirdness
+
+var Trickiness = function (something) {
+  "use strict";
+  return something;
+};
+
+Trickiness.prototype.name = "Trickiness";
+
+var trickyNoObject = new Trickiness("this is not an object");
+var trickyWithObject = new Trickiness({name: "Not Trickiness!"});
+
+console.log(trickyNoObject.name);
+console.log(trickyWithObject.name);
+
+
+
 // Apply invocation
 
 var otherStatusObject = {
