@@ -144,5 +144,111 @@ var add_helper_function = function (array) {
 add_helper_function(array);
 array[1].number();
 
+// Memoization
 
+var fibonnaci = (function () {
+  "use strict";
+  
+  var previousFib2,
+      fib, temp;
+      
+  fib = function (x) {
+    var result;
+    
+    if (x === 1) {
+      previousFib2 = 1;
+      result = 1;
+    } else {
+      temp = fib(x - 1);
+      result = previousFib2 + temp;
+      previousFib2 = temp;
+    }
+    return result;
+  };
+  
+  return fib;
+}());
 
+var fibonnaci = (function () {
+  "use strict";
+  
+  var memo = [0, 1],
+      fib;
+      
+  fib = function (x) {
+    // console.log("Calling fibonnaci!");
+    var result = memo[x];
+
+    if (typeof(result) === 'undefined') {
+      result = fib(x-2) + fib(x-1);
+      memo[x] = result;
+    }
+
+    return result;
+  };
+  
+  return fib;
+}());
+
+var i;
+
+for(i = 0; i <= 10; i +=1) {
+  console.log("fibonnaci " + i + ": " + fibonnaci(i));
+}
+
+// Memoizer
+
+var memoizer = function (memo, formula) {
+  "use strict";
+  
+  var recur;
+  
+  recur = function (x) {
+    var result = memo[x];
+    
+    if (typeof result === 'undefined') {
+      result = formula(recur, x);
+      memo[x] = result;
+    }
+    
+    return result;
+  };
+  
+  return recur;
+};
+
+var memoizedFib = memoizer([0, 1], function(recur, x) {
+  "use strict";
+  
+  return recur(x-2) + recur(x-1);
+});
+
+for(i = 0; i <= 10; i +=1) {
+  console.log("fibonnaci " + i + ": " + memoizedFib(i));
+}
+
+var memoizedFactorial = memoizer([1], function(recur, x) {
+  "use strict";
+  return x * recur(x - 1);
+});
+
+for(i = 0; i <= 10; i +=1) {
+  console.log("facorial " + i + ": " + memoizedFactorial(i));
+}
+
+var squareRooter = function(num) {
+  "use strict";
+  
+  var appoximation = memoizer([num/2], function(recur, x) {
+    var xn = recur(x-1);
+    return (xn + (num/xn)) / 2;
+  });
+  
+  return appoximation;
+};
+
+var squareRootFor123456 = squareRooter(123456);
+
+for(i = 0; i <= 20; i +=1) {
+  console.log("square root approixmation for 123456 " + i + "th: " + squareRootFor123456(i));
+}
