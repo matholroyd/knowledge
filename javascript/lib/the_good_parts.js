@@ -6,7 +6,7 @@ exports.crockify = function() {
       this.prototype[name] = func;
       return this;
   };
-
+  
   Function.method('curry', function () {
       var slice = Array.prototype.slice,
           args = slice.apply(arguments),
@@ -16,6 +16,30 @@ exports.crockify = function() {
           return that.apply(null, args.concat(slice.apply(arguments)));
       };
   });
+
+  Function.method('inherits', function (Parent) {
+    this.prototype = new Parent();
+    return this;
+  });
+  
+  if (typeof Object.create !== 'function') {
+    Object.create = function (obj) {
+      var F = function () {};
+      F.protoype = obj;
+      return new F();
+    };
+  }
+  
+  
+  Object.method('superior', function(name) {
+    var that = this,
+        method = that[name];
+
+    return function () {
+      return method.apply(that, arguments);
+    };
+  });
+  
   
   // Need to check this
   // Object.method('is_array', function () {

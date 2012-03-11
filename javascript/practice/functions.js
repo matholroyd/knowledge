@@ -1,10 +1,11 @@
+"use strict";
+
 // Method invocation
 // `this` is bound to the object
 
 var someObject = {
   value: 0,
   increment: function (inc) {
-    "use strict";
     this.value += inc;
   }
 };
@@ -18,8 +19,6 @@ console.log(someObject.value);
 // `this` bound to global, unless added "use strict" to cause an error
 
 someObject.double = function () {
-  "use strict";
-  
   var that = this,
       helper;
 
@@ -36,13 +35,11 @@ console.log(someObject.value);
 // Constructor invocation
 
 var Quo = function(s) {
-  "use strict";
   this.status = s;
   this.some_other_method = "blah";
 };
 
 Quo.prototype.get_status = function () {
-  "use strict";
   return this.status;
 };
 
@@ -61,7 +58,6 @@ try {
 // Return statement weirdness
 
 var Trickiness = function (something) {
-  "use strict";
   return something;
 };
 
@@ -88,8 +84,6 @@ console.log(Quo.prototype.get_status.apply(otherStatusObject, []));
 // Closure to get private methods
 
 var incrementer =  (function () {
-  "use strict";
-  
   var value = 0;
   
   return {
@@ -110,8 +104,6 @@ console.log(incrementer.get_value());
 
 
 var quo = function(status) {
-  "use strict";
-  
   return {
     get_status: function () {
       return status;
@@ -126,8 +118,6 @@ console.log(myQuo.get_status());
 
 var array = [{}, {}, {}];
 var add_helper_function = function (array) {
-  "use strict";
-
   var i, helper;
   
   helper = function (x) {
@@ -147,8 +137,6 @@ array[1].number();
 // Memoization
 
 var fibonnaci = (function () {
-  "use strict";
-  
   var previousFib2,
       fib, temp;
       
@@ -170,8 +158,6 @@ var fibonnaci = (function () {
 }());
 
 var fibonnaci = (function () {
-  "use strict";
-  
   var memo = [0, 1],
       fib;
       
@@ -199,8 +185,6 @@ for(i = 0; i <= 10; i +=1) {
 // Memoizer
 
 var memoizer = function (memo, formula) {
-  "use strict";
-  
   var recur;
   
   recur = function (x) {
@@ -218,8 +202,6 @@ var memoizer = function (memo, formula) {
 };
 
 var memoizedFib = memoizer([0, 1], function(recur, x) {
-  "use strict";
-  
   return recur(x-2) + recur(x-1);
 });
 
@@ -228,7 +210,6 @@ for(i = 0; i <= 10; i +=1) {
 }
 
 var memoizedFactorial = memoizer([1], function(recur, x) {
-  "use strict";
   return x * recur(x - 1);
 });
 
@@ -237,8 +218,6 @@ for(i = 0; i <= 10; i +=1) {
 }
 
 var squareRooter = function(num) {
-  "use strict";
-  
   var appoximation = memoizer([num/2], function(recur, x) {
     var xn = recur(x-1);
     return (xn + (num/xn)) / 2;
