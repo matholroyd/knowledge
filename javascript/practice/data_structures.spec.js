@@ -24,9 +24,31 @@ describe("stack", function () {
       expect(stack.isEmpty()).toBeFalsy();
     });
     
+    it("pops that item back", function () {
+      expect(stack.pop()).toEqual(someItem);
+    })
+    
+    describe("then pushing another item", function () {
+      var nextItem = "another thing";
+      
+      beforeEach(function () {
+        stack.push(nextItem);
+      });
+      
+      it("pops that new item back first", function () {
+        expect(stack.pop()).toEqual(nextItem);
+      });
+
+      it("second pop gets the original item", function () {
+        stack.pop();
+        expect(stack.pop()).toEqual(someItem);
+      });
+    });
+    
   });
   
-  it("canot pop on empty", function () {
-    
+  it("cannot pop on empty", function () {
+    var e = new DataStructures.StackEmptyException()
+    expect(function () { stack.pop(); }).toThrow(e);
   });
 });
