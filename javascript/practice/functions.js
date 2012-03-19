@@ -61,13 +61,14 @@ var Trickiness = function (something) {
   return something;
 };
 
-Trickiness.prototype.name = "Trickiness";
+Trickiness.myProperty = "Trickiness";
+Trickiness.prototype.myProperty = "Trickiness prototype.name";
 
 var trickyNoObject = new Trickiness("this is not an object");
-var trickyWithObject = new Trickiness({name: "Not Trickiness!"});
+var trickyWithObject = new Trickiness({myProperty: "Not Trickiness!"});
 
-console.log(trickyNoObject.name);
-console.log(trickyWithObject.name);
+console.log(trickyNoObject.myProperty);
+console.log(trickyWithObject.myProperty);
 
 
 
@@ -178,7 +179,7 @@ var fibonnaci = (function () {
 
 var i;
 
-for(i = 0; i <= 10; i +=1) {
+for(i = 0; i <= 5; i +=1) {
   console.log("fibonnaci " + i + ": " + fibonnaci(i));
 }
 
@@ -205,7 +206,7 @@ var memoizedFib = memoizer([0, 1], function(recur, x) {
   return recur(x-2) + recur(x-1);
 });
 
-for(i = 0; i <= 10; i +=1) {
+for(i = 0; i <= 5; i +=1) {
   console.log("fibonnaci " + i + ": " + memoizedFib(i));
 }
 
@@ -213,7 +214,7 @@ var memoizedFactorial = memoizer([1], function(recur, x) {
   return x * recur(x - 1);
 });
 
-for(i = 0; i <= 10; i +=1) {
+for(i = 0; i <= 5; i +=1) {
   console.log("facorial " + i + ": " + memoizedFactorial(i));
 }
 
@@ -228,6 +229,6 @@ var squareRooter = function(num) {
 
 var squareRootFor123456 = squareRooter(123456);
 
-for(i = 0; i <= 20; i +=1) {
+for(i = 0; i <= 5; i +=1) {
   console.log("square root approixmation for 123456 " + i + "th: " + squareRootFor123456(i));
 }
