@@ -1,3 +1,5 @@
+"use strict";
+
 exports.StackEmptyException = function () {
   return {
     message: "Cannot pop() an empty stack"
@@ -35,4 +37,68 @@ exports.Stack = function () {
   return that;
 };
 
+
+exports.BinaryTree = function BT () {
+  var value = null,
+      leftNode = null,
+      rightNode = null,
+      that = {},
+      withLeftNode,
+      withRightNode;
+
+  withLeftNode = function(item) {
+    if(leftNode === null) {
+      leftNode = new BT();
+    }
+    return leftNode;
+  };
+
+  withRightNode = function(item) {
+    if(rightNode === null) {
+      rightNode = new BT();
+    }
+    return rightNode;
+  };
+
+  that.values = function () {
+    var result = [];
+    if(value !== null) {
+      if(leftNode !== null) {
+        result = result.concat(leftNode.values());
+      }
+      result = result.concat([value]);
+      if(rightNode !== null) {
+        result = result.concat(rightNode.values());
+      }
+    }
+    
+    return result;
+  };
+  
+  that.left = function () {
+    return leftNode;
+  };
+
+  that.right = function () {
+    return rightNode;
+  };
+  
+  that.insert = function (item) {
+    if(value === null) {
+      value = item;
+    } else {
+      if(item < value) {
+        withLeftNode().insert(item);
+      } else {
+        withRightNode().insert(item);
+      }
+    }
+  };
+  
+  that.value = function () {
+    return value;
+  }
+
+  return that;  
+};
 
