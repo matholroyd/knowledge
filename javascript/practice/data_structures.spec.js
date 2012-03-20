@@ -185,3 +185,28 @@ describe("binary tree", function () {
   
     
 });
+
+
+describe("hash table", function () {
+  var hashTable;
+  
+  beforeEach(function () {
+    hashTable = new DataStructures.Hash();
+  });
+  
+  it("store key-value pairs", function () {
+    hashTable.add("a", 10);
+    expect(hashTable.get("a")).toEqual(10);
+
+    hashTable.add("b", 99);
+    expect(hashTable.get("a")).toEqual(10);
+    expect(hashTable.get("b")).toEqual(99);
+  });
+
+  it("can override values", function () {
+    hashTable.add("a", 10);
+    hashTable.add("a", 20);
+    expect(hashTable.get("a")).toEqual(20);
+  });
+  
+});

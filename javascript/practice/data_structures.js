@@ -266,3 +266,86 @@ exports.BinaryTree = function (parentNode) {
   return that;  
 };
 
+// Doing a hash table in javascript is pointless as 1) arrays are objects and 2) objects
+// act more or less like hash tables to begin with
+exports.Hash = function (size) {
+  var that = {},
+      table,
+      hashFunction,
+      hashIndex;
+  
+  if(size === undefined) {
+    size == 100;
+  }
+  
+  table = Array(size);
+  
+  hashFunction = function (key) {
+    var hash = 0,
+        char,
+        i;
+        
+    key = key.toString();
+    
+    if (key.length > 0) {
+      for (i = 0; i < key.length; i++) {
+        char = key.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash;
+      }
+    }
+    
+    return hash;
+  };
+  
+  hashIndex = function (key) {
+    return hashFunction(key) % size;
+  };
+  
+  that.add = function(key, value) {
+    var index = hashIndex(key),
+        lookup,
+        i,
+        found = false;
+    
+    if(table[index] === null || table[index] === undefined) {
+      table[index] = [];
+    }
+    
+    lookup = table[index];
+
+    for(i = 0; i < lookup.length; i += 1) {
+      if(lookup[i].key == key) {
+        lookup[i].value = value;
+        found = true;
+        break;
+      }
+    }
+    
+    if(!found) {
+      lookup.push({
+        key: key, 
+        value: value
+      });
+    }
+  };
+  
+  that.get = function(key) {
+    var value = undefined,
+        lookup = table[hashIndex(key)],
+        i;
+
+    if(lookup !== undefined && lookup !== null) {
+      for(i = 0; i < lookup.length; i += 1) {
+        if(lookup[i].key == key) {
+          value = lookup[i].value;
+          break;
+        }
+      }
+    }
+    
+    return value;
+  }
+  
+  return that;
+};
