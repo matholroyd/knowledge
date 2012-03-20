@@ -6,7 +6,7 @@ exports.StackEmptyException = function () {
 
 
 exports.Stack = function () {
-  var items = []
+  var items = [],
       that = {};
   
   that.items = function () {
@@ -18,12 +18,15 @@ exports.Stack = function () {
   };
   
   that.push = function(item) {
-    items.push(item);
+    items = items.concat([item]);
   };
   
   that.pop = function() {
+    var popped;
+    
     if(!that.isEmpty()) {
-      return items.pop();
+      popped = items.splice((items.length - 1), 1);
+      return popped[0];
     } else {
       throw new exports.StackEmptyException()
     }
