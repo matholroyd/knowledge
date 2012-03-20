@@ -45,7 +45,8 @@ exports.BinaryTree = function () {
       that = {},
       withLeftNode,
       withRightNode,
-      find;
+      findNode,
+      findNodeChain;
 
   withLeftNode = function(item) {
     if(leftNode === null) {
@@ -61,8 +62,41 @@ exports.BinaryTree = function () {
     return rightNode;
   };
   
-  find = function (item) {
+  findNode = function(item) {
+    var result = null,
+        node = findNodeChain(item);
     
+    if(node !== null) {
+      result = node[node.length - 1];
+    }
+    
+    return result;
+  };
+  
+  findNodeChain = function (item) {
+    var chain = [],
+        found = false,
+        node = that;
+
+    while(!found && node !== null) {
+      chain.push(node);
+    
+      if(node.value() === item) {
+        found = true;
+      } else {
+        if(item < node.value()) {
+          node = node.left();
+        } else if(item > node.value()) {
+          node = node.right();
+        }
+      }
+    }
+    
+    if(found) {
+      return chain;
+    } else {
+      return null;
+    }
   };
   
   that.nodes = function () {
@@ -136,12 +170,29 @@ exports.BinaryTree = function () {
     }
   };
   
+  that.deleteLeft = function () {
+    leftNode = null;
+  };
+
+  that.deleteRight = function () {
+    rightNode = null;
+  };
+  
   that.delete = function (item) {
-    if(node !== null) {
+    var node = null, 
+        parent = null, 
+        matchToRoot = findNodeChain(item).reverse();
+
+    // if(matchToRoot !== null) {
+      node = matchToRoot[0];
+      parent = matchToRoot[1];
       
-    } else {
-      
-    }
+      if(parent.left() === node) {
+        parent.deleteLeft();
+      } else {
+        parent.right();
+      }
+    // }
   };
   
   that.value = function () {

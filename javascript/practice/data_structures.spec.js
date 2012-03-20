@@ -157,10 +157,10 @@ describe("binary tree", function () {
     });
 
     describe("deleting", function () {
-      // it("removes the node if leaf", function () {
-      //   binary_tree.delete(1);
-      //   expect(binary_tree.left().left()).toBeNull();
-      // });
+      it("removes the node if leaf", function () {
+        binary_tree.delete(1);
+        expect(binary_tree.left().left()).toBeNull();
+      });
     });
 
   });
