@@ -103,31 +103,32 @@ exports.BinaryTree = function (parentNode) {
     }
   };
   
-  that.nodes = function () {
-    var result = [];
+  that.foldDepthFirst = function(initial, aggregator) {
+    var result = initial;
+    
     if(value !== null) {
       if(leftNode !== null) {
-        result = result.concat(leftNode.nodes());
+        result = leftNode.foldDepthFirst(result, aggregator);
       }
-      result = result.concat([that]);
+      result = aggregator(result, that);
       if(rightNode !== null) {
-        result = result.concat(rightNode.nodes());
+        result = rightNode.foldDepthFirst(result, aggregator);
       }
     }
     
     return result;
   };
   
+  that.nodes = function () {
+    return that.foldDepthFirst([], function (result, node) {
+      return result.concat([node]);
+    });
+  };
+  
   that.values = function () {
-    var result = [],
-        i,
-        ns = that.nodes();
-        
-    for(i = 0; i < ns.length; i += 1) {
-      result.push(ns[i].value());
-    }
-            
-    return result;
+    return that.foldDepthFirst([], function (result, node) {
+      return result.concat([node.value()]);
+    });
   };
   
   that.left = function () {
