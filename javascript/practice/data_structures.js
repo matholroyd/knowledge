@@ -38,7 +38,7 @@ exports.Stack = function () {
 };
 
 
-exports.BinaryTree = function () {
+exports.BinaryTree = function (parentNode) {
   var value = null,
       leftNode = null,
       rightNode = null,
@@ -48,16 +48,20 @@ exports.BinaryTree = function () {
       findNode,
       findNodeChain;
 
+  if(parentNode === undefined) {
+    parentNode = null;
+  }
+
   withLeftNode = function(item) {
     if(leftNode === null) {
-      leftNode = new exports.BinaryTree();
+      leftNode = new exports.BinaryTree(that);
     }
     return leftNode;
   };
 
   withRightNode = function(item) {
     if(rightNode === null) {
-      rightNode = new exports.BinaryTree();
+      rightNode = new exports.BinaryTree(that);
     }
     return rightNode;
   };
@@ -170,6 +174,40 @@ exports.BinaryTree = function () {
     }
   };
   
+  that.isLeaf = function() {
+    return leftNode === null && rightNode === null;
+  }
+  
+  that.isLeft = function() {
+    return parentNode !== null && parentNode.left() == that;
+  }
+
+  that.isRight = function() {
+    return parentNode !== null && parentNode.right() == that;
+  }
+  
+  that.parent = function() {
+    return parentNode;
+  }
+  
+  that.removeSelfAndChildren = function() {
+    if(parentNode !== null) {
+      if(parentNode.left() == that) {
+        parentNode.deleteLeft();
+      } else {
+        parentNode.deleteRight();
+      }
+    }
+  }
+  
+  that.attachLeft = function(node) {
+    leftNode = node;
+  }
+  
+  that.attachRight = function(node) {
+    rightNode = node;
+  }
+  
   that.deleteLeft = function () {
     leftNode = null;
   };
@@ -179,20 +217,47 @@ exports.BinaryTree = function () {
   };
   
   that.delete = function (item) {
-    var node = null, 
-        parent = null, 
-        matchToRoot = findNodeChain(item).reverse();
+    var newNode = null,
+        node = findNode(item),
+        parent = node.parent();
 
-    // if(matchToRoot !== null) {
-      node = matchToRoot[0];
-      parent = matchToRoot[1];
-      
-      if(parent.left() === node) {
-        parent.deleteLeft();
-      } else {
-        parent.right();
+    node.removeSelfAndChildren();
+    
+    if(node.left() !== null) {
+      newNode = node.left().rightMost();
+    } else if(node.right() !== null){
+      newNode = node.right().leftMost();
+    }
+    if(newNode !== null) {
+      newNode.removeSelfAndChildren();
+      if(parent !== null && newNode !== null) {
+        if(newNode.value() < parent.value()) {
+          parent.attachLeft(newNode);
+        } else {
+          parent.attachRight(newNode);
+        }
       }
-    // }
+    }
+    
+    // node.left(). ttachRight
+    
+    // var node = null, 
+    //     parent = null, 
+    //     matchToRoot = findNodeChain(item).reverse();
+    // 
+    // // if(matchToRoot !== null) {
+    //   node = matchToRoot[0];
+    //   parent = matchToRoot[1];
+    //   
+    //   if(parent.left() === node) {
+    //     parent.deleteLeft();
+    //     if(node.left() !== null) {
+    //       node.left().rightMost()
+    //     }
+    //   } else {
+    //     // parent.right();
+    //   }
+    // // }
   };
   
   that.value = function () {

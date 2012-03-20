@@ -146,7 +146,7 @@ describe("binary tree", function () {
       });
     });
 
-    describe("righttMost", function () {
+    describe("rightMost", function () {
       it("from root", function () {
         expect(binary_tree.rightMost().value()).toEqual(7);
       });
@@ -157,10 +157,28 @@ describe("binary tree", function () {
     });
 
     describe("deleting", function () {
-      it("removes the node if leaf", function () {
+      it("removes the left most if leaf", function () {
         binary_tree.delete(1);
         expect(binary_tree.left().left()).toBeNull();
       });
+
+      it("removes the left most if leaf", function () {
+        binary_tree.delete(7);
+        expect(binary_tree.right().right()).toBeNull();
+      });
+      
+      it("moves leaf to fill place of 2nd last node", function () {
+        var leaf = binary_tree.left().left()
+        binary_tree.delete(2);
+        expect(binary_tree.left()).toEqual(leaf);
+      });
+
+      it("moves leaf to fill place of root node", function () {
+        var leaf = binary_tree.left().left()
+        binary_tree.delete(4);
+        expect(binary_tree.root()).toEqual(leaf);
+      });
+      
     });
 
   });
