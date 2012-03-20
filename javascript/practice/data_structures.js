@@ -103,16 +103,20 @@ exports.BinaryTree = function (parentNode) {
     }
   };
   
-  that.foldDepthFirst = function(initial, aggregator) {
+  that.foldDepthFirst = function(initial, aggregator, depth) {
     var result = initial;
+    
+    if(depth === undefined) {
+      depth = 1;
+    }
     
     if(value !== null) {
       if(leftNode !== null) {
-        result = leftNode.foldDepthFirst(result, aggregator);
+        result = leftNode.foldDepthFirst(result, aggregator, depth + 1);
       }
-      result = aggregator(result, that);
+      result = aggregator(result, that, depth);
       if(rightNode !== null) {
-        result = rightNode.foldDepthFirst(result, aggregator);
+        result = rightNode.foldDepthFirst(result, aggregator, depth + 1);
       }
     }
     
@@ -140,11 +144,9 @@ exports.BinaryTree = function (parentNode) {
   };
   
   that.leftMost = function () {
-    var result;
+    var result = that;
     
-    if(leftNode === null) {
-      result = that;
-    } else {
+    if(leftNode !== null) {
       result = leftNode.leftMost();
     }
     
@@ -152,11 +154,9 @@ exports.BinaryTree = function (parentNode) {
   };
 
   that.rightMost = function () {
-    var result;
+    var result = that;
     
-    if(rightNode === null) {
-      result = that;
-    } else {
+    if(rightNode !== null) {
       result = rightNode.rightMost();
     }
     
@@ -173,6 +173,13 @@ exports.BinaryTree = function (parentNode) {
         withRightNode().insert(item);
       }
     }
+  };
+  
+  that.print = function () {
+    return that.foldDepthFirst("", function (result, node, depth) {
+      var spacing = Array(depth).join("-");
+      return result + "\n" + spacing + node.value();
+    });
   };
   
   that.isLeaf = function() {
@@ -219,8 +226,14 @@ exports.BinaryTree = function (parentNode) {
   
   that.delete = function (item) {
     var newNode = null,
+        newRoot = that,
         node = findNode(item),
-        parent = node.parent();
+        parent = null;
+
+
+    if(node !== null) {
+      parent = node.parent();
+    }
 
     node.removeSelfAndChildren();
     
@@ -229,36 +242,21 @@ exports.BinaryTree = function (parentNode) {
     } else if(node.right() !== null){
       newNode = node.right().leftMost();
     }
+        
     if(newNode !== null) {
       newNode.removeSelfAndChildren();
-      if(parent !== null && newNode !== null) {
+      if(parent !== null) {
         if(newNode.value() < parent.value()) {
           parent.attachLeft(newNode);
         } else {
           parent.attachRight(newNode);
         }
+      } else {
+        newRoot = newNode;
       }
     }
     
-    // node.left(). ttachRight
-    
-    // var node = null, 
-    //     parent = null, 
-    //     matchToRoot = findNodeChain(item).reverse();
-    // 
-    // // if(matchToRoot !== null) {
-    //   node = matchToRoot[0];
-    //   parent = matchToRoot[1];
-    //   
-    //   if(parent.left() === node) {
-    //     parent.deleteLeft();
-    //     if(node.left() !== null) {
-    //       node.left().rightMost()
-    //     }
-    //   } else {
-    //     // parent.right();
-    //   }
-    // // }
+    return newRoot;
   };
   
   that.value = function () {

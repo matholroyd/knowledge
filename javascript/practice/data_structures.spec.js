@@ -161,7 +161,7 @@ describe("binary tree", function () {
         binary_tree.delete(1);
         expect(binary_tree.left().left()).toBeNull();
       });
-
+      
       it("removes the left most if leaf", function () {
         binary_tree.delete(7);
         expect(binary_tree.right().right()).toBeNull();
@@ -173,10 +173,10 @@ describe("binary tree", function () {
         expect(binary_tree.left()).toEqual(leaf);
       });
 
-      it("moves leaf to fill place of root node", function () {
-        var leaf = binary_tree.left().left()
-        binary_tree.delete(4);
-        expect(binary_tree.root()).toEqual(leaf);
+      it("moves right-most left leaf to fill place of root node", function () {
+        var leaf = binary_tree.left().right()
+        binary_tree = binary_tree.delete(4);
+        expect(binary_tree.value()).toEqual(leaf.value());
       });
       
     });
