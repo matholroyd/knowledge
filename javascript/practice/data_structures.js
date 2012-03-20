@@ -44,7 +44,8 @@ exports.BinaryTree = function () {
       rightNode = null,
       that = {},
       withLeftNode,
-      withRightNode;
+      withRightNode,
+      find;
 
   withLeftNode = function(item) {
     if(leftNode === null) {
@@ -59,19 +60,35 @@ exports.BinaryTree = function () {
     }
     return rightNode;
   };
-
-  that.values = function () {
+  
+  find = function (item) {
+    
+  };
+  
+  that.nodes = function () {
     var result = [];
     if(value !== null) {
       if(leftNode !== null) {
-        result = result.concat(leftNode.values());
+        result = result.concat(leftNode.nodes());
       }
-      result = result.concat([value]);
+      result = result.concat([that]);
       if(rightNode !== null) {
-        result = result.concat(rightNode.values());
+        result = result.concat(rightNode.nodes());
       }
     }
     
+    return result;
+  };
+  
+  that.values = function () {
+    var result = [],
+        i,
+        ns = that.nodes();
+        
+    for(i = 0; i < ns.length; i += 1) {
+      result.push(ns[i].value());
+    }
+            
     return result;
   };
   
@@ -87,7 +104,7 @@ exports.BinaryTree = function () {
     var result;
     
     if(leftNode === null) {
-      result = value;
+      result = that;
     } else {
       result = leftNode.leftMost();
     }
@@ -99,7 +116,7 @@ exports.BinaryTree = function () {
     var result;
     
     if(rightNode === null) {
-      result = value;
+      result = that;
     } else {
       result = rightNode.rightMost();
     }
@@ -116,6 +133,14 @@ exports.BinaryTree = function () {
       } else {
         withRightNode().insert(item);
       }
+    }
+  };
+  
+  that.delete = function (item) {
+    if(node !== null) {
+      
+    } else {
+      
     }
   };
   

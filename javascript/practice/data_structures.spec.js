@@ -138,24 +138,32 @@ describe("binary tree", function () {
     
     describe("leftMost", function () {
       it("from root", function () {
-        expect(binary_tree.leftMost()).toEqual(1);
+        expect(binary_tree.leftMost().value()).toEqual(1);
       });
 
       it("from first right node", function () {
-        expect(binary_tree.right().leftMost()).toEqual(5);
+        expect(binary_tree.right().leftMost().value()).toEqual(5);
       });
     });
 
     describe("righttMost", function () {
       it("from root", function () {
-        expect(binary_tree.rightMost()).toEqual(7);
+        expect(binary_tree.rightMost().value()).toEqual(7);
       });
 
       it("from first left node", function () {
-        expect(binary_tree.left().rightMost()).toEqual(3);
+        expect(binary_tree.left().rightMost().value()).toEqual(3);
       });
     });
 
+    describe("deleting", function () {
+      // it("removes the node if leaf", function () {
+      //   binary_tree.delete(1);
+      //   expect(binary_tree.left().left()).toBeNull();
+      // });
+    });
+
   });
+  
     
 });
