@@ -1,6 +1,7 @@
 "use stict";
 
-var DataStructures = require('./data_structures.js');
+var DataStructures = require('./data_structures.js'),
+    _und = require("underscore");
 
 describe("stack", function () {
   var stack;
@@ -126,6 +127,35 @@ describe("binary tree", function () {
         });
       });
     });
+  });
+  
+  describe("helper functions", function () {
+    beforeEach(function () {
+      _und.each([4, 6, 2, 5, 7, 1, 3], function(item) {
+        binary_tree.insert(item);
+      });
+    });
+    
+    describe("leftMost", function () {
+      it("from root", function () {
+        expect(binary_tree.leftMost()).toEqual(1);
+      });
+
+      it("from first right node", function () {
+        expect(binary_tree.right().leftMost()).toEqual(5);
+      });
+    });
+
+    describe("righttMost", function () {
+      it("from root", function () {
+        expect(binary_tree.rightMost()).toEqual(7);
+      });
+
+      it("from first left node", function () {
+        expect(binary_tree.left().rightMost()).toEqual(3);
+      });
+    });
+
   });
     
 });

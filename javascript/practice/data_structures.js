@@ -38,7 +38,7 @@ exports.Stack = function () {
 };
 
 
-exports.BinaryTree = function BT () {
+exports.BinaryTree = function () {
   var value = null,
       leftNode = null,
       rightNode = null,
@@ -48,14 +48,14 @@ exports.BinaryTree = function BT () {
 
   withLeftNode = function(item) {
     if(leftNode === null) {
-      leftNode = new BT();
+      leftNode = new exports.BinaryTree();
     }
     return leftNode;
   };
 
   withRightNode = function(item) {
     if(rightNode === null) {
-      rightNode = new BT();
+      rightNode = new exports.BinaryTree();
     }
     return rightNode;
   };
@@ -81,6 +81,30 @@ exports.BinaryTree = function BT () {
 
   that.right = function () {
     return rightNode;
+  };
+  
+  that.leftMost = function () {
+    var result;
+    
+    if(leftNode === null) {
+      result = value;
+    } else {
+      result = leftNode.leftMost();
+    }
+    
+    return result;
+  };
+
+  that.rightMost = function () {
+    var result;
+    
+    if(rightNode === null) {
+      result = value;
+    } else {
+      result = rightNode.rightMost();
+    }
+    
+    return result;
   };
   
   that.insert = function (item) {
