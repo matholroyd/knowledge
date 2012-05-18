@@ -8,4 +8,5 @@
     
     ssh-keygen -t dsa
     
-    tar cvzf the_archive.tgz
+    tar cvzf the_archive.tgz the_dir
+    tar cvzf the_archive.tgz <source> [--exclude <dir>]

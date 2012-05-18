@@ -15,3 +15,7 @@
   1. Design By Contract helps make implicit assumptions explicit
   1. Refactoring to a more functional style avoids these implicit assumptions in the first place
 
+## Ruby enables succinct DSLs
+
+- Ruby's block syntax enables elegant DSL syntax, exemplified by RSpec
+  - Suggested that Ruby 'encouraged' RSpec to be created, versus the creators just arbitrarily choosing Ruby as the language

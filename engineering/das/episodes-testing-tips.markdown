@@ -1,3 +1,19 @@
+# 7 Growing a test suite
+
+- Be aware of the way you grow a test suite
+  - Appending to or amending existing tests can lead you to different design choices
+- Suggested amending existing tests leads to better tests + better design
+  - Forces you to reevaluate existing tests
+  - Easier to see insights about what the subject 'wants' to be
+- Insight
+ - Existing tests can become irrelevant as you amend/add features to the thing being tested
+ - Appending can lead to lots of brittle and coupled tests 
+- Additional comments
+  - Much happier with working with value objects versus entities
+    - Value objects don't need to be 'managed', e.g. destroyed
+    - Value objects have less state then entities, hence less concern if make an object dependent on a value object
+
+
 # 35 Which tests to write
 
 - Cucumber tests 
