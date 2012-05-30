@@ -23,4 +23,47 @@
 - Insight
   - Using classes instead of modules to handle separate responsibilities simple way to avoid coupling
 
+# 15- Performance testing in Ruby
 
+File `example_benchmark.rb`:
+
+    require 'spec_helper
+    require 'benchmark'
+    
+    describe OrdersController, type: :controller do
+      it "is fast" do
+        # do setup stuff
+        benchmark do
+          get :show
+        end
+      end
+    end
+    
+    def benchmark(&block)
+      block.call # prime caches
+      time = Benchmark.realtime { block.call }
+      puts "RUNTIME: #{time}"
+    end
+
+File `perf_stats.sh`:
+
+    #!/bin/bash
+    set -e
+    
+    if [ -e stats.csv ]; then
+      rm stats.csv
+    fi
+    
+    run-command-on-git-revisions $1 $2 "sh perf_stats_on_this_rev.sh >> stats.csv"
+    
+File `perf_stats_on_this_rev.sh`:
+
+    #!/bin/bash
+    set -e
+    
+    rev=`git log -1  --pretty='format%h' HEAD`
+    time=`rspec perf/example_benchmark.rb | 
+      grep '^RUNTIME: ' |
+      awk '{print $2}'`
+
+    echo $rev,$time
