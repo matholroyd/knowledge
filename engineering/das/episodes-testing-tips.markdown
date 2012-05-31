@@ -13,6 +13,19 @@
     - Value objects don't need to be 'managed', e.g. destroyed
     - Value objects have less state then entities, hence less concern if make an object dependent on a value object
 
+# 18 Isolated tests
+
+- Problem
+  - Writing integration tests requires pulling in *everything* that is required to run the test.
+  - Makes tests long, hard to understand, brittle
+- Solution
+  - Stub out bits don't actually bits don't care about or that are irrelevant.
+- Insight
+  - Getting integration tests to pass can be painful considering you need to solve problems unrelated to the thing you want to test. 
+  - I.e. incidental setup frustrates testing progress.
+  - Stubbing helps cut out everything that is incidental
+  - Stubbing out can also help gain insight about the thing you're actually building.
+
 
 # 35 Which tests to write
 
