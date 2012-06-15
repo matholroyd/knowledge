@@ -67,3 +67,17 @@ File `perf_stats_on_this_rev.sh`:
       awk '{print $2}'`
 
     echo $rev,$time
+    
+# 21 - Coupling and abstraction
+
+- Problem
+  - There is a temptation/philosophy to wait for duplication to occur before doing refactoring. 
+  - The problem is that the duplication can be difficult to notice, in that it may require scanning entire chunks of the source code to find it for each line of new code.
+  - Example of this is duplicating `where` clauses in different Rails controllers.
+- Solution
+  - Suggested solution is to build the system in such way as to minimize coupling at every stage. 
+  - This means making abstractions explicit whenever they come up, rather then a quick hack to capture that abstraction. 
+  - In the case of Rails `where` clauses, placing the clause behind an explicitly named scope, even if its used in only one place, encourages reuse.
+- Insight
+  - Test-Driven-Design encourages the aforementioned good behaviour, as the coupling because dead obvious when writing the test.
+  - Hence one trick is to capture that inevitable feeling of disgust and redesign the system via the stubbed tests even before writing the subject of the tests itself.
