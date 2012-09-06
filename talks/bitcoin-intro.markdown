@@ -182,3 +182,27 @@
   - Don't publish your bitcoin addresses
   - Don't assume you can't be tracked if e.g. some government really wants to find out who you are
 
+## Questions
+
+### Is bitcoin a "pyramid scheme"?
+
+- If by "pyramid scheme" its meant, "is bitcoin a ponzi scheme", then the answer is a definite no.
+  - If someone sends you bitcoins, they are in your possession and you have 100% control of what you do with them.
+  - Contrast this to a ponzi scheme
+    - In a ponzi scheme, someone _promises_ to give you something, whether its bananas, dollars, gold, etc
+    - In reality, the person running the ponzi scheme is handing out more IOUs then they can possibly fulfil
+    - The ponzi scheme collapses when the rate of daily payouts (withdrawals) exceeds the rate of income (deposits) 
+  - Interestingly, fiat currency in every country is arguably run like a ponzi scheme, due to fractional reserve banking. 
+    - Banks loan out more money then they have in reserve
+    - A bank run is thus possible for any bank that uses fractional reserves. Central banks often guarantee consumer banks against this very threat. But note: astute observes will ask the question, "where does the central bank get _its'_ money from?"
+    - Pretty much every country around the world use fractional reserve banking
+- If by "pyramid scheme" its meant, "early adopters win, late adopters lose", then I'd say that's a misunderstanding of investing
+  - Investing is _not_ a zero-sum game
+    - Investing time/money into bitcoin is analogous to going into any new technology
+    - Early adopters can potentially do better financially then late adopters, but they also take all the risk
+    - Late adopters get the benefit of hindsight, reliable vendors, etc.
+  - Compare this to investing in stocks
+    - Early investors get potentially huge rewards, but also take the risk they get nothing in return
+    - Late investors get the benefit of buying an established company with a proven record
+
+
