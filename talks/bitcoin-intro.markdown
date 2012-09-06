@@ -204,5 +204,10 @@
   - Compare this to investing in stocks
     - Early investors get potentially huge rewards, but also take the risk they get nothing in return
     - Late investors get the benefit of buying an established company with a proven record
-
+- If by "pyramid scheme" its meant, "is bitcoin in a bubble?", then the answer is I don't know
+  - Bitcoin prices have been rising for ~10 months, but at $10 a bitcoin that's a third of their historic high mid-2011 of ~$32
+  - Contrast this to Australian dollar
+    - AUD is a few % off its all time historic high compared to the US dollar
+    - AUD is still 30~40% higher then it was for decades compared to the US dollar
+    - Is the AUD in a bubble? I don't know
 
