@@ -163,9 +163,7 @@
   - Avoid most online wallet services 
     - Examples
       - MyWallet.com (closed now)
-      - Coinbase.com
-      - Easywallet.org
-    - Small amount maybe ok
+      - Coinbase.com and Easywallet.org good, but be careful!
     - Online ok if wallet encrypted before it gets to them
       - Blockchain.info
   - Mobile wallets are your friend
