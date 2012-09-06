@@ -1,0 +1,26 @@
+# Blockciphers
+
+## What is block cipher
+
+- Has encryption + decryption algorithms, E and D
+- plaintext size = ciphertext size
+- Splits input into blocks (of size n bits)
+- Blocks encrypted over several 'rounds'
+- 3DES
+  - n = 64 bits
+  - k = 168 bits
+  - 48 rounds
+- AES
+  - n = 128 bits
+  - k = 128, 192, 256 bits
+  - 10 rounds
+
+## Pseudo Random Permutation (PRP) 
+- User interchangeably to describe blockcipher
+- Formally abstraction of a block cipher
+- Basically something is PRP if:
+  1. Exists efficient algorithm that deterministically maps X -> X (where X is set of values)
+  1. The function E(k, x) is one-to-one
+  1. Exists efficient inversion algorithm D(k, y)
+- PRP is basically a Pseudo Random Function (PRF) but with more constraints
+
