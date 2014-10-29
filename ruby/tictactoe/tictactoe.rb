@@ -10,7 +10,7 @@ class TicTacToe
     when "2"
       set_players(HumanPlayer.new("Human"), AIPlayer.new("AI"))
     when "3"
-      set_players(HumanPlayer.new("AI B"), AIPlayer.new("AI A"))
+      set_players(AIPlayer.new("AI A"), AIPlayer.new("AI B"))
     else
       throw Exception.new("Unexpected choice #{choice}")
     end
@@ -61,7 +61,7 @@ class TicTacToe
     end
     
     if @board.winner?
-      puts "There was a winnner!"
+      puts "Player #{@board.get_winner} was the winner!"
     else
       puts "There was no winner! A draw!"
     end
