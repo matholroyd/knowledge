@@ -170,8 +170,12 @@ class Board
     if places.nil?
       @places = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
     else
-      @places = Array.new(board.places)
+      @places = places
     end
+  end
+  
+  def clone
+    Board.new(Array.new(places))
   end
   
   def game_ended?
