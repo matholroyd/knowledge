@@ -104,6 +104,10 @@ class AIPlayer < Player
 end
 
 class Board
+  include Enumerable
+  
+  attr_accessor :board
+  
   def initialize
     @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
   end
@@ -132,7 +136,11 @@ class Board
       end
     end
     
-    winning_symbol
+    winning_player_symbol
+  end
+  
+  def each(&block)
+    board.flatten.each(&block)
   end
   
   def check_diagonal_winner
