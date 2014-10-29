@@ -92,8 +92,8 @@ class Board
     puts "Enter a number to pick your move"
     i = 0
     places.each do |row|
-      row.each do |column|
-        print column.nil? ? i : column
+      row.each do |cell|
+        print cell.nil? ? i : cell
         print " "
         i += 1
       end
@@ -107,22 +107,28 @@ class Board
     (0..8).include?(i) && get_position(i).nil?
   end
   
-  def make_move(move, symbol)
-    i = move.to_i
-    set_position(i, symbol)
+  def make_move(i, player_symbol)
+    DBC.require((0..8).include?(i.to_i))
+
+    i = i.to_i
+    set_position(i, player_symbol)
   end
   
   def get_position(i)
+    DBC.require((0..8).include?(i))
+
     x = i % 3
     y = i / 3
         
     places[y][x]
   end
   
-  def set_position(i, change)
+  def set_position(i, player_symbol)
+    DBC.require((0..8).include?(i))
+
     x = i % 3
     y = i / 3
     
-    places[y][x] = change
+    places[y][x] = player_symbol
   end
 end

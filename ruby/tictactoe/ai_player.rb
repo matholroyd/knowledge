@@ -19,6 +19,8 @@ class AIPlayer < Player
 
   # From https://en.wikipedia.org/wiki/Minimax
   def find_min_max_move(board, player_type)
+    DBC.require([:max_player, :min_player].include?(player_type))
+    
     winner = board.get_winner
     if !winner.nil?
       score = winner == symbol ? 1 : -1

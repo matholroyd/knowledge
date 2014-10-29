@@ -1,4 +1,5 @@
 require 'ir_b'
+require './dbc'
 require './board'
 require './player'
 require './human_player'
@@ -43,6 +44,10 @@ class TicTacToe
   end
   
   def set_players(a, b)
+    DBC.require(a.is_a?(Player))
+    DBC.require(b.is_a?(Player))
+    DBC.require(a != b)
+    
     @playerA = a
     @playerA.symbol = "A"
     @playerA.other_player_symbol = "B"
