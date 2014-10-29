@@ -1,8 +1,6 @@
 class Board
   include Enumerable
   
-  attr_accessor :cells
-  
   def initialize(cells = nil)
     if cells.nil?
       @cells = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
@@ -131,5 +129,11 @@ class Board
     y = i / 3
     
     cells[y][x] = player_symbol
+  end
+  
+  private
+  
+  def cells
+    @cells
   end
 end
