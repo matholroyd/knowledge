@@ -122,12 +122,12 @@ class Board
   end
   
   def check_horizontal_winner(board = @board)
-    winning_symbol = nil
+    winning_player_symbol = nil
     
     board.each do |row|
       row = row.uniq
       if row.count == 1 && !row[0].nil?
-        winning_symbol = row[0]
+        winning_player_symbol = row[0]
         break
       end
     end
