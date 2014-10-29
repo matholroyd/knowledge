@@ -118,7 +118,7 @@ class AIPlayer < Player
   def make_dumb_move(board)
     board.each_with_index do |place, i|
       if place.nil?
-        board.make_move(i + 1, symbol)
+        board.make_move(i, symbol)
         break
       end
     end
@@ -201,7 +201,7 @@ class Board
   
   def print_moves
     puts "Enter a number to pick your move"
-    i = 1
+    i = 0
     @board.each do |row|
       row.each do |column|
         print column.nil? ? i : column
@@ -215,26 +215,27 @@ class Board
   def legal_move?(move)
     i = move.to_i
     
-    (1..9).include?(i) && get_board_position(i).nil?
+    (0..8).include?(i) && get_position(i).nil?
   end
   
   def make_move(move, symbol)
     i = move.to_i
-    get_board_position(i, symbol)
+    set_position(i, symbol)
   end
   
-  def get_board_position(i, change = nil)
-    # When calculating x and y, start from index 0, not 1
-    j = i - 1
-    
-    x = j % 3
-    y = j / 3
-    
-    if !change.nil?
-      @board[y][x] = change
-    end
-    
+  def get_position(i)
+    x = i % 3
+    y = i / 3
+        
     @board[y][x]
   end
+  
+  def set_position(i, change)
+    x = i % 3
+    y = i / 3
+    
+    @board[y][x] = change
+  end
+  
   
 end
