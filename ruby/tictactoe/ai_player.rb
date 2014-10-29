@@ -21,28 +21,30 @@ class AIPlayer < Player
   def find_min_max_move(board, player_type)
     DBC.require([:max_player, :min_player].include?(player_type))
     
+    score = nil
     winner = board.get_winner
+    
     if !winner.nil?
       score = winner == symbol ? 1 : -1
     elsif board.no_moves_left?
-      0
+      score = 0
     elsif player_type == :max_player
-      bestValue = -99
+      score = -99
       board.possible_moves.each do |i|
         b = board.copy
         b.make_move(i, symbol)
-        bestValue = [find_min_max_move(b, :min_player), bestValue].max
+        score = [find_min_max_move(b, :min_player), score].max
       end
-      bestValue
     else
-      bestValue = 99
+      score = 99
       board.possible_moves.each do |i|
         b = board.copy
         b.make_move(i, other_player_symbol)
-        bestValue = [find_min_max_move(b, :max_player), bestValue].min
+        score = [find_min_max_move(b, :max_player), score].min
       end
-      bestValue
     end
+    
+    score
   end
   
 end
