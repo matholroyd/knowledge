@@ -1,6 +1,8 @@
 require 'ir_b'
 require './board'
 require './player'
+require './human_player'
+require './ai_player'
 
 class TicTacToe
   def start
