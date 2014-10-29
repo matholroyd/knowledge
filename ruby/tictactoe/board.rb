@@ -1,20 +1,20 @@
 class Board
   include Enumerable
   
-  attr_accessor :places
+  attr_accessor :cells
   
-  def initialize(places = nil)
-    if places.nil?
-      @places = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+  def initialize(cells = nil)
+    if cells.nil?
+      @cells = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
     else
-      @places = places
+      @cells = cells
     end
   end
   
   def copy
     # Need to manually clone the 2nd level of the array as Ruby would otherwise
     # just copy the refs
-    Board.new(places.collect(&:clone))
+    Board.new(cells.collect(&:clone))
   end
   
   def game_ended?
@@ -26,17 +26,18 @@ class Board
   end
   
   def get_winner
-    check_horizontal_winner || check_horizontal_winner(places.transpose) ||
+    check_horizontal_winner || check_horizontal_winner(cells.transpose) ||
     check_diagonal_winner
   end
   
-  def check_horizontal_winner(places = @places)
+  def check_horizontal_winner(cells = @cells)
     winning_player_symbol = nil
     
-    places.each do |row|
-      row = row.uniq
-      if row.count == 1 && !row[0].nil?
-        winning_player_symbol = row[0]
+    cells.each do |row|
+      # Winning row if all the items are just 1 thing that isn't nil
+      r = row.uniq
+      if r.count == 1 && !r[0].nil?
+        winning_player_symbol = r[0]
         break
       end
     end
@@ -45,11 +46,11 @@ class Board
   end
   
   def each(&block)
-    places.flatten.each(&block)
+    cells.flatten.each(&block)
   end
   
   def possible_moves
-    places.flatten.collect.with_index do |place, i|
+    cells.flatten.collect.with_index do |place, i|
       place.nil? ? i : nil
     end.compact
   end
@@ -57,14 +58,14 @@ class Board
   def check_diagonal_winner
     collection_of_diagonals = [
       [
-        places[0][0],
-        places[1][1],
-        places[2][2]
+        cells[0][0],
+        cells[1][1],
+        cells[2][2]
       ],
       [
-        places[2][0],
-        places[1][1],
-        places[0][2]
+        cells[2][0],
+        cells[1][1],
+        cells[0][2]
       ]
     ]
     
@@ -73,13 +74,13 @@ class Board
   
   def no_moves_left?
     # No moves left if no nils, so see if compacting doesn't change the size
-    places.flatten.compact.count == 9
+    cells.flatten.compact.count == 9
   end
   
   def print_state
     puts "Current board state:"
 
-    places.each do |row|
+    cells.each do |row|
       row.each do |column|
         print column.nil? ? '-' : column
         print " "
@@ -91,7 +92,7 @@ class Board
   def print_moves
     puts "Enter a number to pick your move"
     i = 0
-    places.each do |row|
+    cells.each do |row|
       row.each do |cell|
         print cell.nil? ? i : cell
         print " "
@@ -120,7 +121,7 @@ class Board
     x = i % 3
     y = i / 3
         
-    places[y][x]
+    cells[y][x]
   end
   
   def set_position(i, player_symbol)
@@ -129,6 +130,6 @@ class Board
     x = i % 3
     y = i / 3
     
-    places[y][x] = player_symbol
+    cells[y][x] = player_symbol
   end
 end
