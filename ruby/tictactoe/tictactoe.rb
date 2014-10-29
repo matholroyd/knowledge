@@ -164,10 +164,14 @@ end
 class Board
   include Enumerable
   
-  attr_accessor :board
+  attr_accessor :places
   
-  def initialize
-    @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+  def initialize(places = nil)
+    if places.nil?
+      @places = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+    else
+      @places = Array.new(board.places)
+    end
   end
   
   def game_ended?
@@ -179,14 +183,14 @@ class Board
   end
   
   def get_winner
-    check_horizontal_winner || check_horizontal_winner(@board.transpose) ||
+    check_horizontal_winner || check_horizontal_winner(places.transpose) ||
     check_diagonal_winner
   end
   
-  def check_horizontal_winner(board = @board)
+  def check_horizontal_winner(places = @places)
     winning_player_symbol = nil
     
-    board.each do |row|
+    places.each do |row|
       row = row.uniq
       if row.count == 1 && !row[0].nil?
         winning_player_symbol = row[0]
@@ -198,20 +202,20 @@ class Board
   end
   
   def each(&block)
-    board.flatten.each(&block)
+    places.flatten.each(&block)
   end
   
   def check_diagonal_winner
     collection_of_diagonals = [
       [
-        @board[0][0],
-        @board[1][1],
-        @board[2][2]
+        places[0][0],
+        places[1][1],
+        places[2][2]
       ],
       [
-        @board[2][0],
-        @board[1][1],
-        @board[0][2]
+        places[2][0],
+        places[1][1],
+        places[0][2]
       ]
     ]
     
@@ -220,13 +224,13 @@ class Board
   
   def no_moves_left?
     # No moves left if no nils, so see if compacting doesn't change the size
-    @board.flatten.compact.count == 9
+    places.flatten.compact.count == 9
   end
   
   def print_state
     puts "Current board state:"
 
-    @board.each do |row|
+    places.each do |row|
       row.each do |column|
         print column.nil? ? '-' : column
         print " "
@@ -238,7 +242,7 @@ class Board
   def print_moves
     puts "Enter a number to pick your move"
     i = 0
-    @board.each do |row|
+    places.each do |row|
       row.each do |column|
         print column.nil? ? i : column
         print " "
@@ -263,14 +267,14 @@ class Board
     x = i % 3
     y = i / 3
         
-    @board[y][x]
+    places[y][x]
   end
   
   def set_position(i, change)
     x = i % 3
     y = i / 3
     
-    @board[y][x] = change
+    places[y][x] = change
   end
   
   
