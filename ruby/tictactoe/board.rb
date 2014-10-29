@@ -48,8 +48,8 @@ class Board
   end
   
   def possible_moves
-    cells.flatten.collect.with_index do |place, i|
-      place.nil? ? i : nil
+    cells.flatten.collect.with_index do |cell, i|
+      cell.nil? ? i : nil
     end.compact
   end
   
