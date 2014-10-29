@@ -102,11 +102,9 @@ end
 
 class AIPlayer < Player
   def get_move(board)
-    win_if_possible(board) || stop_other_player_winning_if_possible(board) || 
-    make_dumb_move(board)
-    # pick_good_spot(board)
-    
-    # make_dumb_move(board)
+    # win_if_possible(board) || stop_other_player_winning_if_possible(board) ||
+    pick_good_spot(board)
+     # || make_dumb_move(board)
   end
   
   def win_if_possible(board)
@@ -149,6 +147,47 @@ class AIPlayer < Player
   end
   
   def pick_good_spot(board)
+    best_move = nil
+    best_score = -99
+
+    board.possible_moves.each do |i|
+      b = board.copy
+      b.make_move(i, symbol)
+      score = find_min_max_move(b, :min_player)
+      if score > best_score
+        best_move = i
+        best_score = score
+      end
+    end
+
+    board.make_move(best_move, symbol)
+    true
+  end
+
+  # From https://en.wikipedia.org/wiki/Minimax
+  def find_min_max_move(board, player_type)
+    winner = board.get_winner
+    if !winner.nil?
+      score = winner == symbol ? 1 : -1
+    elsif board.no_moves_left?
+      0
+    elsif player_type == :max_player
+      bestValue = -99
+      board.possible_moves.each do |i|
+        b = board.copy
+        b.make_move(i, symbol)
+        bestValue = [find_min_max_move(b, :min_player), bestValue].max
+      end
+      bestValue
+    else
+      bestValue = 99
+      board.possible_moves.each do |i|
+        b = board.copy
+        b.make_move(i, other_player_symbol)
+        bestValue = [find_min_max_move(b, :max_player), bestValue].min
+      end
+      bestValue
+    end
   end
   
   def make_dumb_move(board)
@@ -159,6 +198,7 @@ class AIPlayer < Player
       end
     end
   end
+  
 end
 
 class Board
@@ -174,8 +214,10 @@ class Board
     end
   end
   
-  def clone
-    Board.new(Array.new(places))
+  def copy
+    # Need to manually clone the 2nd level of the array as Ruby would otherwise
+    # just copy the refs
+    Board.new(places.collect(&:clone))
   end
   
   def game_ended?
@@ -207,6 +249,12 @@ class Board
   
   def each(&block)
     places.flatten.each(&block)
+  end
+  
+  def possible_moves
+    places.flatten.collect.with_index do |place, i|
+      place.nil? ? i : nil
+    end.compact
   end
   
   def check_diagonal_winner
