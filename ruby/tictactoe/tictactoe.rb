@@ -38,9 +38,11 @@ class TicTacToe
   def set_players(a, b)
     @playerA = a
     @playerA.symbol = "A"
+    @playerA.other_player_symbol = "B"
 
     @playerB = b
     @playerB.symbol = "B"
+    @playerB.other_player_symbol = "A"
   end
   
   def start_game_loop
@@ -73,7 +75,7 @@ class TicTacToe
 end
 
 class Player
-  attr_accessor :symbol, :name
+  attr_accessor :symbol, :name, :other_player_symbol
   
   def initialize(name)
     @name = name
@@ -100,9 +102,8 @@ end
 
 class AIPlayer < Player
   def get_move(board)
-    win_if_possible(board) || make_dumb_move(board)
-
-    # stop_other_player_winning_if_possible(board) ||
+    win_if_possible(board) || stop_other_player_winning_if_possible(board) || 
+    make_dumb_move(board)
     # pick_good_spot(board)
     
     # make_dumb_move(board)
@@ -113,7 +114,6 @@ class AIPlayer < Player
     
     board.each_with_index do |move, i|
       if move.nil?
-        puts "checking #{i}..."
         board.make_move(i, symbol)
 
         if board.get_winner == symbol
@@ -129,6 +129,23 @@ class AIPlayer < Player
   end
   
   def stop_other_player_winning_if_possible(board)
+    made_move = false
+    
+    board.each_with_index do |move, i|
+      if move.nil?
+        board.make_move(i, other_player_symbol)
+        if board.get_winner == other_player_symbol
+          # Replace temporary move with other player symbol with my symbol
+          board.make_move(i, symbol)
+          made_move = true
+          break
+        end
+
+        board.make_move(i, nil)
+      end
+    end
+    
+    made_move
   end
   
   def pick_good_spot(board)
