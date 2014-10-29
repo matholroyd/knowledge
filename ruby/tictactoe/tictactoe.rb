@@ -100,19 +100,38 @@ end
 
 class AIPlayer < Player
   def get_move(board)
-    # win_if_possible || stop_other_player_winning_if_possible || pick_good_spot
+    win_if_possible(board) || make_dumb_move(board)
+
+    # stop_other_player_winning_if_possible(board) ||
+    # pick_good_spot(board)
     
-    make_dumb_move(board)
+    # make_dumb_move(board)
   end
   
-  def win_if_possible
-     
+  def win_if_possible(board)
+    made_move = false
+    
+    board.each_with_index do |move, i|
+      if move.nil?
+        puts "checking #{i}..."
+        board.make_move(i, symbol)
+
+        if board.get_winner == symbol
+          made_move = true
+          break
+        end
+
+        board.make_move(i, nil)
+      end
+    end
+    
+    made_move
   end
   
-  def stop_other_player_winning_if_possible
+  def stop_other_player_winning_if_possible(board)
   end
   
-  def pick_good_spot
+  def pick_good_spot(board)
   end
   
   def make_dumb_move(board)
