@@ -25,3 +25,17 @@ you can simply install Postgress via [chocolatey](https://chocolatey.org/). Howe
 To install the actual postgres server using `choco` use:
 
 `choco install postgresql-9.3`
+
+
+### Redis setup
+
+`sudo apt-get -y install redis-server`
+
+If server hasn't started, use:
+
+`sudo service redis-server status`
+`sudo service redis-server restart`
+
+### ImageMagick
+
+`sudo apt-get install imagemagick`
