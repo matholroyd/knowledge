@@ -1,4 +1,6 @@
-# Guiding principles
+# Don't make me think - Book overview
+
+## Guiding principles
 
 Notes:
 - Clarity trumps consistency
@@ -15,19 +17,19 @@ Clicks:
 - Clicking lots of times is ok, so long as each click is a mindless, unambiguous choice.
 - What matters more is not how many clicks I have to make, but how hard each click is.
 
-# Krugs laws
+## Krugs laws
 
-## Third law
+### Third law
 
 *Get rid of half the words on each page, then get rid of half of what's left.*
 
-# Things you need to get right
+## Things you need to get right
 
 Notes:
 - People won't use your site if they can't find what they're looking for.
 - Its hard for users to know when to stop looking.
 
-## Navigation
+### Navigation
 
 Notes:
 - Navigation reveals content. 
