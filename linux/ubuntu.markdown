@@ -14,4 +14,5 @@ I think it tries to keep you on an LTS version if you're upgrading from a curren
 version, though I couldn't find documentation to confirm this, only comments that
 hinted at this. Futhermore there are no options to specify the version to
 upgrade to :(.
- 
+
+`dpkg -i <package name>.deb` to install an arbitrary package.
